@@ -1,21 +1,19 @@
-from mrjob.job import MRJob
-from mrjob.step impport MRStep
+from mrjob.job import MRJob # Way to write MR jobs in python
+from mrjob.step import MRStep
 
 class RatingsBreakdown(MRJob):
-    def steps(Self):
-            return[
-                MRStep(mapper=self.mapper_get_ratings,
-                        reducer=self.reducer_count_ratings)
+    def steps(self):
+        return [
+            MRStep(mapper=self.mapper_get_ratings,
+                reducer=self.reducer_count_ratigns)
+        ]
 
-            ]
-
-    def mapper_get_ratings(self, _ , line):
+    def mapper_get_ratings(self, _, line):
         (userID, movieID, rating, timestamp) = line.split('\t')
-        yeild rating, 1
+        yield rating, 1
 
-    def reducer_count_ratings(self, key, values):
-        yeild key, sum(values)
-
+    def reduce_count_ratings(self, key, values):
+        yield key, sum(values)
 
 if __name__ == '__main__':
-    RatingsBreakdown.ren()
+    RatingsBreakdown.run()
