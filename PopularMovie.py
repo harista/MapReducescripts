@@ -12,8 +12,8 @@ class RatingsCount(MRJob):
         (userID, movieID, rating, timestamp) = line.split('\t')
         yield movieID, 1
 
-    def reducer_count_ratings(self, key, values):
-        yield key, sum(values)
+    def reducer_count_ratings(self, movieID, values):
+        yield movieID, str(sum(values))
 
 if __name__ == '__main__':
     RatingsCount.run()
